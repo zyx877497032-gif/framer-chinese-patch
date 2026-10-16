@@ -12,7 +12,7 @@ const translations = {
   "Redo": "重做", "Search": "搜索", "Close": "关闭", "Save": "保存", "Cancel": "取消", "Done": "完成",
   "Create": "创建", "Open": "打开", "Upload": "上传", "Download": "下载", "Desktop": "桌面端",
   "Tablet": "平板端", "Mobile": "移动端", "Width": "宽度", "Height": "高度", "Opacity": "不透明度",
-  "Position": "位置", "Size": "尺寸", "Color": "颜色", "Font": "字体", "Spacing": "间距",
+  "Position": "位置", "Size": "尺寸", "Color": "颜色", "Font": "字体", "Typography": "字体排印", "Weight": "字重", "Spacing": "间距",
   "Padding": "内边距", "Padding top": "上内边距", "Padding right": "右内边距", "Padding bottom": "下内边距", "Padding left": "左内边距", "Gap": "间隔", "Radius": "圆角", "Shadow": "阴影", "Border": "边框",
   "Auto": "自动", "Fixed": "固定", "Fill": "填充", "Fit": "适应", "Stack": "堆栈", "Grid": "网格",
   "Visible": "可见", "Hidden": "隐藏", "Align": "对齐", "Alignment": "对齐方式", "Center": "居中",
