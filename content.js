@@ -1,7 +1,10 @@
 const translations = {
   "Assets": "资源", "Start": "开始", "Distribute": "分布", "Convert": "转换", "Locate": "定位",
+  "Set": "设置", "Unset": "取消设置", "Unset variable": "取消变量", "Set variable": "设置变量",
+  "Set as variable": "设为变量", "Create variable": "创建变量", "Variable": "变量", "Collection": "集合",
+  "Local variables": "本地变量", "Shared variables": "共享变量", "Add variable": "添加变量", "Edit variable": "编辑变量",
   "Display option": "显示选项", "Equals": "等于", "Doesn’t equal": "不等于", "Doesn't equal": "不等于",
-  "Set variable": "设置变量", "Overlays": "叠加层", "Cursor": "光标", "Layers": "图层", "Pages": "页面",
+  "Overlays": "叠加层", "Cursor": "光标", "Layers": "图层", "Pages": "页面",
   "Components": "组件", "Insert": "插入", "Layout": "布局", "Styles": "样式", "Effects": "效果",
   "Settings": "设置", "Publish": "发布", "Preview": "预览", "Share": "分享", "Design": "设计",
   "Prototype": "原型", "CMS": "内容管理", "Code": "代码", "Canvas": "画布", "Add": "添加",
@@ -10,23 +13,23 @@ const translations = {
   "Create": "创建", "Open": "打开", "Upload": "上传", "Download": "下载", "Desktop": "桌面端",
   "Tablet": "平板端", "Mobile": "移动端", "Width": "宽度", "Height": "高度", "Opacity": "不透明度",
   "Position": "位置", "Size": "尺寸", "Color": "颜色", "Font": "字体", "Spacing": "间距",
-  "Padding": "内边距", "Gap": "间隔", "Radius": "圆角", "Shadow": "阴影", "Border": "边框",
+  "Padding": "内边距", "Padding top": "上内边距", "Padding right": "右内边距", "Padding bottom": "下内边距", "Padding left": "左内边距", "Gap": "间隔", "Radius": "圆角", "Shadow": "阴影", "Border": "边框",
   "Auto": "自动", "Fixed": "固定", "Fill": "填充", "Fit": "适应", "Stack": "堆栈", "Grid": "网格",
   "Visible": "可见", "Hidden": "隐藏", "Align": "对齐", "Alignment": "对齐方式", "Center": "居中",
   "Left": "左对齐", "Right": "右对齐", "Top": "顶部", "Bottom": "底部", "Direction": "方向",
-  "Horizontal": "水平", "Vertical": "垂直", "Relative": "相对", "Absolute": "绝对", "Constraints": "约束",
+  "Horizontal": "水平", "Vertical": "垂直", "Relative": "相对", "Absolute": "绝对", "Constraints": "约束", "Pin": "固定到边缘", "Pin left": "固定到左侧", "Pin right": "固定到右侧", "Pin top": "固定到顶部", "Pin bottom": "固定到底部",
   "Sizing": "尺寸调整", "Min": "最小", "Max": "最大", "Content": "内容", "Wrap": "换行",
   "Overflow": "溢出", "Clip": "裁剪", "Scroll": "滚动", "Transform": "变换", "Rotate": "旋转",
   "Scale": "缩放", "Blur": "模糊", "Transition": "过渡", "Animation": "动画", "Duration": "时长",
-  "Delay": "延迟", "Ease": "缓动", "Linear": "线性", "Trigger": "触发器", "Tap": "点击",
-  "Hover": "悬停", "Press": "按下", "Drag": "拖拽", "Link": "链接", "URL": "网址", "Target": "目标",
+  "Delay": "延迟", "Ease": "缓动", "Linear": "线性", "Spring": "弹簧", "Ease in": "缓入", "Ease out": "缓出", "Ease in out": "缓入缓出", "Trigger": "触发器", "Tap": "点击",
+  "Hover": "悬停", "Press": "按下", "Drag": "拖拽", "While hovering": "悬停时", "While pressing": "按下时", "Link": "链接", "URL": "网址", "Target": "目标", "Open in new tab": "在新标签页打开",
   "New": "新建", "Copy": "复制", "Paste": "粘贴", "Reset": "重置", "Replace": "替换", "More": "更多",
-  "General": "常规", "Advanced": "高级", "Appearance": "外观", "Accessibility": "无障碍", "Interactions": "交互",
+  "General": "常规", "Advanced": "高级", "Appearance": "外观", "Accessibility": "无障碍", "Interactions": "交互", "Layout settings": "布局设置", "Layer settings": "图层设置", "Text settings": "文本设置", "Fill settings": "填充设置", "Stroke": "描边", "Stroke width": "描边宽度", "Corner radius": "圆角半径",
   "Variables": "变量", "Breakpoints": "断点", "Responsive": "响应式", "Variant": "变体", "Overrides": "覆盖",
   "Instance": "实例", "Text": "文本", "RichText": "富文本", "Image": "图片", "Video": "视频",
-  "Icon": "图标", "Placeholder": "占位符", "Default": "默认", "Loading": "加载中", "Error": "错误",
+  "Icon": "图标", "Placeholder": "占位符", "Default": "默认", "Loading": "加载中", "Error": "错误", "No fill": "无填充", "Solid": "纯色", "Gradient": "渐变", "Linear gradient": "线性渐变", "Radial gradient": "径向渐变", "Image fill": "图片填充",
   "Warning": "警告", "Learn more": "了解更多", "Fit content": "适应内容", "In view": "进入视口",
-  "Scroll section": "滚动区段", "Page link": "页面链接", "Open link": "打开链接", "Set as variable": "设为变量"
+  "Scroll section": "滚动区段", "Page link": "页面链接", "Open link": "打开链接", "Show more": "显示更多", "Show less": "收起", "No results": "无结果", "Try again": "重试", "Remove override": "移除覆盖", "Reset override": "重置覆盖"
 };
 
 const originalText = new WeakMap();
