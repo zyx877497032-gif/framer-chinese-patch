@@ -1,5 +1,5 @@
 const translations = {
-  "Assets": "资源", "Start": "开始", "Distribute": "分布", "Convert": "转换", "Locate": "定位",
+  "Assets": "资源", "Agent": "代理", "Style": "样式", "Type": "类型", "Yes": "是", "No": "否", "Start": "开始", "Distribute": "分布", "Convert": "转换", "Locate": "定位",
   "Set": "设置", "Unset": "取消设置", "Unset variable": "取消变量", "Set variable": "设置变量",
   "Set as variable": "设为变量", "Create variable": "创建变量", "Variable": "变量", "Collection": "集合",
   "Local variables": "本地变量", "Shared variables": "共享变量", "Add variable": "添加变量", "Edit variable": "编辑变量",
@@ -66,7 +66,9 @@ function translateValue(value) {
 function isUiElement(element) {
   if (!element || element.nodeType !== Node.ELEMENT_NODE) return false;
   if (element.closest("[contenteditable='true'], textarea, input, pre, code, [data-framer-canvas]")) return false;
-  return Boolean(element.matches("button,[role='button'],[role='menuitem'],[role='option'],[role='tab'],[role='listbox'],[aria-label],[title],label") || element.closest("[role='menu'],[role='dialog'],[role='listbox']"));
+  if (element.matches("button,[role='button'],[role='menuitem'],[role='option'],[role='tab'],[role='listbox'],[aria-label],[title],label") || element.closest("[role='menu'],[role='dialog'],[role='listbox']")) return true;
+  const text = element.childNodes.length === 1 && element.firstChild.nodeType === Node.TEXT_NODE ? element.textContent.trim() : "";
+  return Boolean(text && (translations[text] || Object.prototype.hasOwnProperty.call(customTranslations, text)));
 }
 
 function rememberText(node, value) {
@@ -104,7 +106,7 @@ function translateElement(element) {
 function scanRoot(root) {
   if (!root) return;
   if (root.nodeType === Node.ELEMENT_NODE) translateElement(root);
-  root.querySelectorAll?.("button,[role='button'],[role='menuitem'],[role='option'],[role='tab'],[role='listbox'],[aria-label],[title],label,[role='menu'],[role='dialog']").forEach(translateElement);
+  root.querySelectorAll?.("button,[role='button'],[role='menuitem'],[role='option'],[role='tab'],[role='listbox'],[aria-label],[title],label,[role='menu'],[role='dialog'],div,span").forEach(translateElement);
   root.querySelectorAll?.("*").forEach((element) => { if (element.shadowRoot) scanRoot(element.shadowRoot); });
 }
 
