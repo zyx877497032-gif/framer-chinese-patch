@@ -39,12 +39,16 @@ const exactPattern = new RegExp(`^\\s*(${exactKeys.map(escapeRegExp).join("|")})
 const wordKeys = exactKeys.filter((key) => !/\s/.test(key) && !/[’']/u.test(key));
 const wordPattern = new RegExp(`\\b(${wordKeys.map(escapeRegExp).join("|")})\\b`, "g");
 let enabled = true;
+let customTranslations = {};
 let scanQueued = false;
 
 function escapeRegExp(value) { return value.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&"); }
 
 function translateValue(value) {
   if (!value || typeof value !== "string") return value;
+  const dictionary = { ...translations, ...customTranslations };
+  const customKey = Object.keys(customTranslations).find((key) => value.trim().toLowerCase() === key.toLowerCase());
+  if (customKey) return value.replace(value.trim(), customTranslations[customKey]);
   const exact = value.match(exactPattern);
   if (exact) {
     const original = exact[1];
@@ -112,6 +116,7 @@ function restore() {
   while (walker.nextNode()) if (originalText.has(walker.currentNode)) walker.currentNode.nodeValue = originalText.get(walker.currentNode);
 }
 
-chrome.storage.sync.get({ enabled: true }, ({ enabled: saved }) => { enabled = saved; queueScan(); });
+chrome.storage.sync.get({ enabled: true, customTranslations: {} }, ({ enabled: saved, customTranslations: savedTerms }) => { enabled = saved; customTranslations = savedTerms || {}; queueScan(); });
 chrome.storage.onChanged.addListener((changes) => { if (!changes.enabled) return; enabled = changes.enabled.newValue; enabled ? queueScan() : restore(); });
+chrome.storage.onChanged.addListener((changes) => { if (!changes.customTranslations) return; customTranslations = changes.customTranslations.newValue || {}; restore(); queueScan(); });
 new MutationObserver((mutations) => { if (enabled && mutations.some(({ addedNodes }) => addedNodes.length)) queueScan(); }).observe(document.documentElement, { childList: true, subtree: true });
