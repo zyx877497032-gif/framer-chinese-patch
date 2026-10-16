@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Framer 中文补丁",
+  "version": "0.2.0",
+  "description": "为 Framer 编辑器提供可开关的简体中文界面补丁。",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Framer 中文补丁",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "128": "icons/icon128.png" },
+  "content_scripts": [
+    {
+      "matches": ["https://framer.com/*", "https://*.framer.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
