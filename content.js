@@ -68,7 +68,9 @@ function isUiElement(element) {
   if (element.closest("[contenteditable='true'], textarea, input, pre, code, [data-framer-canvas]")) return false;
   if (element.matches("button,[role='button'],[role='menuitem'],[role='option'],[role='tab'],[role='listbox'],[aria-label],[title],label") || element.closest("[role='menu'],[role='dialog'],[role='listbox']")) return true;
   const text = element.childNodes.length === 1 && element.firstChild.nodeType === Node.TEXT_NODE ? element.textContent.trim() : "";
-  return Boolean(text && (translations[text] || Object.prototype.hasOwnProperty.call(customTranslations, text)));
+  if (!text || text.length > 64 || !/[A-Za-z]/.test(text)) return false;
+  if (translations[text] || Object.prototype.hasOwnProperty.call(customTranslations, text)) return true;
+  return wordKeys.some((key) => new RegExp(`\\b${escapeRegExp(key)}\\b`, "i").test(text));
 }
 
 function rememberText(node, value) {
