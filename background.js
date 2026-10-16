@@ -1,6 +1,9 @@
 function updateBadge(enabled) {
-  chrome.action.setBadgeText({ text: enabled ? "•" : "" });
-  chrome.action.setBadgeBackgroundColor({ color: enabled ? "#35a853" : "#777985" });
+  chrome.action.setIcon({
+    path: enabled
+      ? { 16: "icons/icon16-enabled.png", 32: "icons/icon32-enabled.png", 128: "icons/icon128-enabled.png" }
+      : { 16: "icons/icon16.png", 32: "icons/icon32.png", 128: "icons/icon128.png" }
+  });
   chrome.action.setTitle({ title: enabled ? "Framer 中文补丁：已开启" : "Framer 中文补丁：已关闭" });
 }
 
