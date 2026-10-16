@@ -40,6 +40,11 @@ const wordKeys = exactKeys.filter((key) => !/\s/.test(key) && !/[’']/u.test(ke
 const wordPattern = new RegExp(`\\b(${wordKeys.map(escapeRegExp).join("|")})\\b`, "g");
 let enabled = true;
 let customTranslations = {};
+let displayMode = "zh";
+let debugMode = false;
+const debugStyle = document.createElement("style");
+debugStyle.textContent = "[data-framer-zh-untranslated]{outline:2px dashed #f59e0b !important;outline-offset:2px !important;background:rgba(245,158,11,.08) !important;cursor:copy !important;}";
+document.documentElement.appendChild(debugStyle);
 let scanQueued = false;
 
 function escapeRegExp(value) { return value.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&"); }
@@ -91,6 +96,9 @@ function translateElement(element) {
     if (translated !== node.nodeValue) { rememberText(node, node.nodeValue); node.nodeValue = translated; changed = true; }
   });
   if (changed) element.dataset.framerZhTranslated = "1";
+  if (debugMode && !changed && /[A-Za-z]{2,}/.test(element.textContent || "")) {
+    element.dataset.framerZhUntranslated = "1";
+  }
 }
 
 function scanRoot(root) {
@@ -114,9 +122,12 @@ function restore() {
   });
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   while (walker.nextNode()) if (originalText.has(walker.currentNode)) walker.currentNode.nodeValue = originalText.get(walker.currentNode);
+  document.querySelectorAll("[data-framer-zh-untranslated]").forEach((element) => delete element.dataset.framerZhUntranslated);
 }
 
-chrome.storage.sync.get({ enabled: true, customTranslations: {} }, ({ enabled: saved, customTranslations: savedTerms }) => { enabled = saved; customTranslations = savedTerms || {}; queueScan(); });
+chrome.storage.sync.get({ enabled: true, customTranslations: {}, displayMode: "zh", debugMode: false }, ({ enabled: saved, customTranslations: savedTerms, displayMode: savedMode, debugMode: savedDebug }) => { enabled = saved; customTranslations = savedTerms || {}; displayMode = savedMode; debugMode = savedDebug; displayMode === "original" ? restore() : queueScan(); });
 chrome.storage.onChanged.addListener((changes) => { if (!changes.enabled) return; enabled = changes.enabled.newValue; enabled ? queueScan() : restore(); });
 chrome.storage.onChanged.addListener((changes) => { if (!changes.customTranslations) return; customTranslations = changes.customTranslations.newValue || {}; restore(); queueScan(); });
+chrome.storage.onChanged.addListener((changes) => { if (changes.displayMode) { displayMode = changes.displayMode.newValue; displayMode === "original" ? restore() : queueScan(); } if (changes.debugMode) { debugMode = changes.debugMode.newValue; restore(); queueScan(); } });
+document.addEventListener("click", (event) => { const target = event.target.closest?.("[data-framer-zh-untranslated]"); if (!target || !debugMode) return; navigator.clipboard?.writeText(target.textContent.trim()); target.title = "已复制英文术语"; });
 new MutationObserver((mutations) => { if (enabled && mutations.some(({ addedNodes }) => addedNodes.length)) queueScan(); }).observe(document.documentElement, { childList: true, subtree: true });
